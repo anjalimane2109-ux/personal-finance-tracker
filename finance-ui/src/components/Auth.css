@@ -1,0 +1,105 @@
+/* Auth.css */
+
+:root {
+    --primary-color: #3f51b5;
+    --background-light: #f5f7fa;
+    --card-background: #ffffff;
+    --box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    --border-radius: 12px;
+    --spacing-md: 20px;
+    --spacing-lg: 30px;
+}
+
+body {
+    background: linear-gradient(135deg, var(--background-light), #e0e6ed);
+    font-family: 'Roboto', sans-serif;
+}
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.auth-card {
+    background-color: var(--card-background);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.auth-card h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.auth-form-group {
+    margin-bottom: var(--spacing-md);
+    text-align: left;
+}
+
+.auth-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.auth-form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-button:hover {
+    background-color: var(--primary-hover);
+}
+
+.auth-toggle {
+    margin-top: var(--spacing-md);
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.auth-toggle a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-toggle a:hover {
+    text-decoration: underline;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,581 @@
+/* --- CSS Variables for Easy Customization --- */
+:root {
+    --primary-green: #4caf50;
+    --primary-green-dark: #43a047;
+    --primary-red: #f44336;
+    --primary-red-dark: #d32f2f;
+    --dark-blue: #2c3e50;
+    --background-gray: #f0f2f5;
+    --card-background: #ffffff;
+    --card-border: #e0e0e0;
+    --text-color: #333;
+    --muted-text-color: #777;
+    --input-background: #f9f9f9;
+    --secondary-bg-light: #e8eaf6;
+    --secondary-bg-hover: #d8dae7;
+    --spacing-lg: 20px;
+    --spacing-md: 10px;
+    --border-radius: 8px;
+}
+
+/* --- General & Body Styles --- */
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--background-gray);
+    color: var(--text-color);
+}
+
+.dashboard-container {
+    padding: var(--spacing-lg);
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+/* --- Dashboard Header --- */
+.dashboard-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid var(--card-border);
+    position: relative;
+}
+
+.dashboard-header h1 {
+    font-size: 2.5rem;
+    color: var(--dark-blue);
+    margin: 0;
+    text-align: center;
+}
+
+.logout-button {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-color: var(--primary-red);
+    color: white;
+}
+
+.logout-button:hover {
+    background-color: var(--primary-red-dark);
+    transform: translateY(-50%) scale(1.05);
+}
+
+/* --- Export Buttons --- */
+.export-buttons-container {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: flex-end;
+    margin-bottom: var(--spacing-md);
+}
+
+.export-button-csv,
+.export-button-pdf {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: white;
+}
+
+.export-button-csv {
+    background-color: var(--primary-green);
+}
+
+.export-button-csv:hover {
+    background-color: var(--primary-green-dark);
+    transform: translateY(-2px);
+}
+
+.export-button-pdf {
+    background-color: var(--primary-red);
+}
+
+.export-button-pdf:hover {
+    background-color: var(--primary-red-dark);
+    transform: translateY(-2px);
+}
+
+/* --- Buttons --- */
+.add-transaction-button {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-color: var(--primary-green);
+    color: white;
+}
+
+.add-transaction-button:hover {
+    background-color: var(--primary-green-dark);
+    transform: translateY(-2px);
+}
+
+/* --- Dashboard Cards & Grid --- */
+.dashboard-grid {
+    display: grid;
+    /* This column definition assumes 2 flexible columns by default on larger screens */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    align-items: start;
+}
+
+.dashboard-card {
+    background-color: var(--card-background);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card h3 {
+    margin-top: 0;
+    color: #555;
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: var(--spacing-md);
+}
+
+/* Ensure these span correctly in the grid */
+.transaction-form-card,
+.chart-section {
+    grid-column: span 2;
+}
+
+/* --- UPDATED: Styling for the Transaction List Card with Sticker --- */
+.dashboard-card.transaction-list-card {
+    grid-column: span 2; /* Span 2 columns to make it wider */
+    grid-row: span 2;    /* Span 2 rows to make it taller */
+    position: relative;  /* Needed for absolute positioning of the sticker */
+    padding-left: 30px;  /* Make space for the sticker */
+    overflow: hidden;    /* Clip the sticker if it extends slightly */
+    display: flex;       /* Enable flex for internal layout to distribute height */
+    flex-direction: column; /* Stack header and list */
+}
+
+/* --- STICKER ANIMATION --- */
+@keyframes sparkle {
+    0% { box-shadow: 0 0 0px 0px rgba(76, 175, 80, 0.7); opacity: 0.7; }
+    50% { box-shadow: 0 0 10px 5px rgba(76, 175, 80, 0.9); opacity: 1; }
+    100% { box-shadow: 0 0 0px 0px rgba(76, 175, 80, 0.7); opacity: 0.7; }
+}
+
+.dashboard-card.transaction-list-card::before {
+    content: '$'; /* Dollar sign content for finance theme */
+    position: absolute;
+    left: -8px; /* Adjust for overlap */
+    top: 15px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px; /* Center text vertically */
+    text-align: center; /* Center text horizontally */
+    background-color: gold; /* Gold for money */
+    color: var(--dark-blue); /* Dark text on gold */
+    border-radius: 50%; /* Make it circular like a coin */
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    z-index: 2; /* Ensure it's above the card background */
+}
+
+.dashboard-card.transaction-list-card::after {
+    content: '';
+    position: absolute;
+    left: -12px; /* Position slightly behind the coin */
+    top: 10px;
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    border-radius: 50%;
+    animation: sparkle 2s infinite ease-in-out; /* Apply sparkle animation */
+    z-index: 1; /* Behind the coin, but above the card */
+}
+
+.chart-section {
+    display: flex;
+    gap: var(--spacing-lg);
+}
+
+.chart-item {
+    flex: 1;
+    min-width: 0;
+}
+
+.chart-container {
+    height: 320px;
+    width: 100%;
+}
+
+/* --- Transaction Form --- */
+.transaction-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    align-items: end;
+}
+
+.transaction-form input,
+.transaction-form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    background-color: var(--input-background);
+    color: var(--text-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.transaction-form input:focus,
+.transaction-form select:focus {
+    outline: none;
+    border-color: var(--primary-green);
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+}
+
+/* --- Transaction List --- */
+.transactions-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: var(--spacing-lg);
+    flex-grow: 1; /* Allow the list to take up available vertical space */
+    /* Set a max height for the scrollable list inside the large card */
+    max-height: calc(100% - var(--spacing-lg) - 40px - var(--spacing-md)); /* Adjust for h3, border, and top margin */
+    overflow-y: auto;
+    padding-right: 10px; /* Add some padding for the scrollbar */
+    padding-left: 10px; /* Ensure list items don't hide under the sticker */
+}
+
+.transaction-item {
+    background-color: var(--input-background);
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Added alternating background color for better readability */
+.transaction-item:nth-child(even) {
+    background-color: var(--secondary-bg-light);
+}
+
+.transaction-item:hover {
+    background-color: var(--secondary-bg-hover);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.transaction-amount {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.transaction-amount.expense {
+    color: var(--primary-red);
+}
+
+.transaction-amount.income {
+    color: var(--primary-green);
+}
+
+/* --- Footer & Other Styles --- */
+.text-muted {
+    color: var(--muted-text-color);
+}
+
+.error-message {
+    color: var(--primary-red);
+    font-weight: bold;
+}
+
+.loading-message {
+    color: var(--primary-green);
+}
+
+.thank-you-footer {
+    text-align: center;
+    padding: var(--spacing-lg);
+    color: var(--muted-text-color);
+    font-style: italic;
+    margin-top: var(--spacing-lg);
+}
+
+.thank-you-footer p {
+    font-size: 2.5rem;
+    color: var(--dark-blue);
+    margin: 0;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.subscription-list-container {
+    margin-top: 15px;
+}
+
+.subscriptions-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: var(--spacing-md);
+}
+
+.subscription-item {
+    background-color: var(--input-background);
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subscription-item:hover {
+    background-color: var(--background-gray);
+}
+
+.subscription-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.subscription-details span {
+    font-size: 0.8rem;
+    color: var(--muted-text-color);
+}
+
+.subscription-amount {
+    font-weight: bold;
+    color: var(--primary-red);
+}
+
+/* --- NEW STYLES --- */
+.goal-list-container {
+    margin-top: 15px;
+}
+
+.goal-item {
+    background-color: var(--input-background);
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-bottom: var(--spacing-md);
+}
+
+.goal-item h4 {
+    margin: 0 0 var(--spacing-md) 0;
+    color: var(--dark-blue);
+}
+
+.goal-progress-bar {
+    background-color: var(--card-border);
+    border-radius: 5px;
+    height: 10px;
+    overflow: hidden;
+    margin: var(--spacing-md) 0;
+}
+
+.goal-progress {
+    height: 100%;
+    background-color: var(--primary-green);
+    transition: width 0.5s ease;
+}
+
+.goal-item p {
+    font-size: 0.9rem;
+    color: #555;
+    text-align: right;
+    margin: 0;
+}
+
+.bill-list-container {
+    margin-top: 15px;
+}
+
+.bills-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: var(--spacing-md);
+}
+
+.bill-item {
+    background-color: var(--input-background);
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bill-item:hover {
+    background-color: var(--background-gray);
+}
+
+.bill-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.bill-details span {
+    font-size: 0.8rem;
+    color: var(--muted-text-color);
+}
+
+.bill-amount {
+    font-weight: bold;
+    color: var(--primary-red);
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: var(--spacing-md);
+        gap: var(--spacing-md);
+    }
+    
+    .dashboard-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .logout-button {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    .chart-section {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    .chart-container {
+        height: 250px;
+    }
+
+    .dashboard-card {
+        padding: 15px;
+    }
+    
+    .transaction-form input,
+    .transaction-form select,
+    .add-transaction-button {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    /* Adjust transaction list card for mobile to stack vertically */
+    .dashboard-card.transaction-list-card {
+        grid-column: span 1; /* Go back to 1 column on mobile */
+        grid-row: auto; /* Let row height be automatic */
+        padding-left: 25px; /* Adjust padding for smaller screens if needed */
+    }
+
+    .dashboard-card.chart-section {
+        /* On small screens, charts should also span one column */
+        grid-column: span 1;
+    }
+}
+
+/* Styling for the new Smart Shopping Reminders card */
+.shopping-reminders-card {
+    background: linear-gradient(135deg, #f0f8ff, #e0e8f0); /* Light blue gradient */
+    border-left: 5px solid #28a745; /* Green accent */
+}
+
+.shopping-reminders-card .reminders-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.shopping-reminders-card .reminder-icon {
+    font-size: 1.5rem;
+}
+
+.reminders-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+.reminder-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 10px;
+    transition: transform 0.2s;
+}
+
+.reminder-item:hover {
+    transform: translateY(-2px);
+}
+
+.reminder-message {
+    flex: 1;
+}
+
+.reminder-message p:first-child {
+    font-weight: 500;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.reminder-message .text-muted {
+    font-size: 0.85rem;
+    margin: 4px 0 0;
+    color: #666;
+}
+
+.add-reminder-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.add-reminder-button:hover {
+    background-color: #218838;
+}
+
+.shopping-reminders-card .text-muted {
+    text-align: center;
+    padding: 15px;
+}

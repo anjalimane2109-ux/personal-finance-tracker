@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard | Finance Tracker</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Dashboard</h2>
+
+    <form id="transaction-form">
+      <input type="text" id="title" placeholder="Title" required />
+      <input type="number" id="amount" placeholder="Amount" required />
+      <input type="text" id="category" placeholder="Category" required />
+      <input type="date" id="date" required />
+      <select id="transaction_type">
+        <option value="expense">Expense</option>
+        <option value="income">Income</option>
+      </select>
+      <button type="submit">Add</button>
+    </form>
+
+    <h3>Transactions</h3>
+    <ul id="transactions-list"></ul>
+
+    <button onclick="predict()">Predict Next Month’s Expense</button>
+    <p id="prediction"></p>
+  </div>
+
+  <script>
+    const token = localStorage.getItem("access");
+
+    async function fetchTransactions() {
+      const res = await fetch("/api/transactions/", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      const list = document.getElementById("transactions-list");
+      list.innerHTML = "";
+      data.forEach(tx => {
+        list.innerHTML += `<li>${tx.date}: ${tx.title} - ₹${tx.amount} (${tx.transaction_type})</li>`;
+      });
+    }
+
+    document.getElementById("transaction-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const tx = {
+        title: document.getElementById("title").value,
+        amount: document.getElementById("amount").value,
+        category: document.getElementById("category").value,
+        date: document.getElementById("date").value,
+        transaction_type: document.getElementById("transaction_type").value,
+      };
+      await fetch("/api/transactions/", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(tx)
+      });
+      fetchTransactions();
+    });
+
+    async function predict() {
+      const res = await fetch("/predict-expense/", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      document.getElementById("prediction").innerText = "Predicted: ₹" + data.prediction;
+    }
+
+    fetchTransactions();
+  </script>
+</body>
+</html>
