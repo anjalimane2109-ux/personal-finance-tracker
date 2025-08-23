@@ -193,7 +193,7 @@ const Dashboard = () => {
             setLoading(false);
             setError("Please log in to view your dashboard.");
         }
-    }, [user, fetchAllDashboardData]); // Depend on user and fetchAllDashboardData
+    }, [user, fetchAllDashboardData, authTokens]); // Depend on user and fetchAllDashboardData
 
     // Helper function to format date to YYYY-MM-DD (remains the same)
     const formatDateToYYYYMMDD = (dateString) => {
@@ -701,7 +701,7 @@ const Dashboard = () => {
                     newBillAmount={newBillAmount}
                     setNewBillAmount={setNewBillAmount}
                     newBillDueDate={newBillDueDate}
-                    setNewBillDueDate={newBillDueDate}
+                    setNewBillDueDate={setNewBillDueDate}
                     handleAddBill={handleAddBill}
                 />
 
