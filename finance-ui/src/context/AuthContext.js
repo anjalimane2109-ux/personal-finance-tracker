@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
             try {
                 const token = JSON.parse(storedTokens).access;
                 const decoded = jwtDecode(token);
-                return { username: decoded.username, user_id: decoded.user_id };
+                return decoded;
             } catch (e) {
                 console.error("Failed to decode token from localStorage", e);
                 localStorage.removeItem('authTokens'); // Clear invalid tokens
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
                 const data = await response.json();
                 setAuthTokens(data);
                 const decodedToken = jwtDecode(data.access);
-                setUser({ username: decodedToken.username, user_id: decodedToken.user_id });
+                setUser(decodedToken);
                 localStorage.setItem('authTokens', JSON.stringify(data));
                 navigate('/dashboard');
             } else {
@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }) => {
                 const data = await response.json();
                 const decodedToken = jwtDecode(data.access);
                 setAuthTokens(data);
-                setUser({ username: decodedToken.username, user_id: decodedToken.user_id });
+                setUser(decodedToken);
                 localStorage.setItem('authTokens', JSON.stringify(data));
             } else {
                 logoutUser();
