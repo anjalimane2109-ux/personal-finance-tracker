@@ -1,5 +1,6 @@
 # tracker/urls.py
 from django.urls import path
+from .views import signup
 from .views import (
     TransactionList, TransactionDetail, MonthlySummary, CategoryAnalysis,
     SmartInsights, ExpensePrediction, SubscriptionList, GoalList, BillList,
@@ -13,7 +14,7 @@ urlpatterns = [
     # General endpoints
     path('transactions/', TransactionList.as_view(), name='transaction-list'),
     path('transactions/<int:pk>/', TransactionDetail.as_view(), name='transaction-detail'),
-    
+    path('signup/', signup),
     # Insights and analysis
     path('monthly-summary/', MonthlySummary.as_view(), name='monthly-summary'),
     path('category-analysis/', CategoryAnalysis.as_view(), name='category-analysis'),

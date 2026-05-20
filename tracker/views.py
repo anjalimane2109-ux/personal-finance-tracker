@@ -515,3 +515,20 @@ def export_transactions_pdf(request):
     doc.build(elements)
 
     return response
+
+from django.contrib.auth.models import User
+from rest_framework import status
+
+
+@api_view(['POST'])
+def signup(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    if User.objects.filter(username=username).exists():
+        return Response(
+            {'error': 'Username already exists'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    User.objects
