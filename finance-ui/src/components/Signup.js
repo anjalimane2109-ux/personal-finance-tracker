@@ -15,7 +15,7 @@ function Signup() {
         setLoading(true);
 
         try {
-            const response = await fetch(`${BASE_URL}/api/signup/`, {
+            const response = await fetch(`https://personal-finance-tracker-ku87.onrender.com/api/signup/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
