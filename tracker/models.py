@@ -2,6 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from decimal import Decimal 
+from django.utils import timezone
 
 class Transaction(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -62,7 +63,7 @@ class Reminder(models.Model):
     description = models.TextField(blank=True, null=True)
     due_date = models.DateField()
     is_completed = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True) # Essential for created_at errors
+    created_at = models.DateTimeField(default=timezone.datetime(2024, 1, 1, 0, 0, 0))
 
     def __str__(self):
         return f"{self.user.username} - {self.title} (Due: {self.due_date})"
