@@ -10,12 +10,16 @@ function Signup() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleSignup = async (e) => {
-        e.preventDefault();
+    const handleSignup = async () => {
+        if (!username || !password) {
+            alert('Please enter username and password.');
+            return;
+        }
+
         setLoading(true);
 
         try {
-            const response = await fetch(`https://personal-finance-tracker-ku87.onrender.com/api/signup/`, {
+            const response = await fetch(`${BASE_URL}/api/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,17 +27,10 @@ function Signup() {
                 body: JSON.stringify({ username, password }),
             });
 
-            // ✅ FIX 1: Safely parse JSON — avoid crash if server returns HTML
             let data = {};
             const contentType = response.headers.get('content-type');
             if (contentType && contentType.includes('application/json')) {
                 data = await response.json();
-            } else {
-                const text = await response.text();
-                console.error('Non-JSON response:', text);
-                // ✅ FIX 2: Show the actual HTTP status to help debug
-                alert(`Server error (${response.status}): Endpoint not found. Check your backend route.`);
-                return;
             }
 
             if (response.ok) {
@@ -43,7 +40,6 @@ function Signup() {
                 alert(data.error || `Sign up failed (${response.status}). Please try again.`);
             }
         } catch (error) {
-            // ✅ FIX 3: Log the real error message for debugging
             console.error('Signup error:', error.message);
             alert(`An error occurred: ${error.message}`);
         } finally {
@@ -51,13 +47,11 @@ function Signup() {
         }
     };
 
-    // ... rest of JSX stays the same
-
     return (
         <div className="auth-container">
             <div className="auth-card">
                 <h2>Sign Up</h2>
-                <form onSubmit={handleSignup}>
+                <form method="POST">
                     <div className="auth-form-group">
                         <label htmlFor="username">Username</label>
                         <input
@@ -81,8 +75,9 @@ function Signup() {
                         />
                     </div>
                     <button
-                        type="submit"
+                        type="button"
                         className="auth-button"
+                        onClick={handleSignup}
                         disabled={loading}
                     >
                         {loading ? 'Signing Up...' : 'Sign Up'}
