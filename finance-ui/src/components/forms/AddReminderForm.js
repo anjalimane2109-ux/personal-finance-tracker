@@ -47,6 +47,12 @@ const AddReminderForm = ({
                             type="button" 
                             className="cancel-button" 
                             onClick={() => setEditingReminderId(null)}
+                            onClick={() => {
+                                setEditingReminderId(null);
+                                setNewReminderTitle('');
+                                setNewReminderDescription('');
+                                setNewReminderDate('');
+                            }}
                         >
                             Cancel
                         </button>

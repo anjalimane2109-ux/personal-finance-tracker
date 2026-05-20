@@ -1,61 +1,114 @@
-import React from 'react';
+// src/components/AddTransaction.js
+import React, { useState } from 'react';
+import axios from '../services/api';
+import { useAuth } from '../context/AuthContext'; // ✅ Use auth context
 
-const AddTransactionForm = ({
-    amount,
-    setAmount,
-    transactionType,
-    setTransactionType,
-    category,
-    setCategory,
-    title,
-    setTitle,
-    dueDate,
-    setDueDate,
-    handleAddTransaction,
-}) => {
-    return (
-        <div className="dashboard-card transaction-form-card">
-            <h3>Add New Transaction</h3>
-            <form onSubmit={handleAddTransaction} className="transaction-form">
-                <input
-                    type="number"
-                    placeholder="Amount"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    required
-                />
-                <select
-                    value={transactionType}
-                    onChange={(e) => setTransactionType(e.target.value)}
-                    required
-                >
-                    <option value="expense">Expense</option>
-                    <option value="income">Income</option>
-                </select>
-                <input
-                    type="text"
-                    placeholder="Category"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    required
-                />
-                <input
-                    type="text"
-                    placeholder="Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                />
-                <input
-                    type="date"
-                    value={dueDate}
-                    onChange={(e) => setDueDate(e.target.value)}
-                    required
-                />
-                <button type="submit" className="add-transaction-button">Add</button>
-            </form>
+const AddTransaction = ({ onAdd }) => {
+  const [title, setTitle] = useState('');
+  const [amount, setAmount] = useState('');
+  const [category, setCategory] = useState('');
+  const [transactionType, setTransactionType] = useState('expense');
+  const [date, setDate] = useState('');
+  const { authTokens } = useAuth(); // ✅ Access token from context
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!authTokens?.access) {
+      alert('Please login first.');
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        '/transactions/',
+        {
+          title,
+          amount,
+          category,
+          transaction_type: transactionType,
+          date,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authTokens.access}`,
+          },
+        }
+      );
+
+      alert('Transaction added successfully');
+
+      // ✅ Clear inputs
+      setTitle('');
+      setAmount('');
+      setCategory('');
+      setTransactionType('expense');
+      setDate('');
+
+      // ✅ Update transaction list in parent
+      if (onAdd) onAdd(res.data);
+    } catch (error) {
+      console.error('Error adding transaction:', error);
+      alert('Failed to add transaction');
+    }
+  };
+
+  return (
+    <div style={{ padding: '20px' }}>
+      <h2>Add Transaction</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Title: </label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </div>
-    );
+        <div>
+          <label>Amount: </label>
+          <input
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Category: </label>
+          <input
+            type="text"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Type: </label>
+          <select
+            value={transactionType}
+            onChange={(e) => setTransactionType(e.target.value)}
+          >
+            <option value="expense">Expense</option>
+            <option value="income">Income</option>
+          </select>
+        </div>
+        <div>
+          <label>Date: </label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" style={{ marginTop: '10px' }}>
+          Add
+        </button>
+      </form>
+    </div>
+  );
 };
 
-export default AddTransactionForm;
+export default AddTransaction;

@@ -1,13 +1,13 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  const { logoutUser } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem('access'); // remove JWT token
+    logoutUser();
     alert('Logged out successfully!');
-    navigate('/login');
   };
 
   return (
@@ -15,7 +15,7 @@ const Navbar = () => {
       <h2 style={styles.logo}>💸 Finance Tracker</h2>
       <div style={styles.links}>
         <Link to="/dashboard" style={styles.link}>Dashboard</Link>
-        <Link to="/add" style={styles.link}>Add Transaction</Link>
+        <Link to="/home" style={styles.link}>Home</Link>
         <button onClick={handleLogout} style={styles.logoutBtn}>Logout</button>
       </div>
     </nav>

@@ -4,6 +4,7 @@ import axios from '../services/api';
 import { useAuth } from '../context/AuthContext'; // ✅ Use auth context
 
 const AddTransaction = ({ onAdd }) => {
+  const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
   const [transactionType, setTransactionType] = useState('expense');
@@ -22,6 +23,7 @@ const AddTransaction = ({ onAdd }) => {
       const res = await axios.post(
         '/transactions/',
         {
+          title,
           amount,
           category,
           transaction_type: transactionType,
@@ -37,6 +39,7 @@ const AddTransaction = ({ onAdd }) => {
       alert('Transaction added successfully');
 
       // ✅ Clear inputs
+      setTitle('');
       setAmount('');
       setCategory('');
       setTransactionType('expense');
@@ -54,6 +57,15 @@ const AddTransaction = ({ onAdd }) => {
     <div style={{ padding: '20px' }}>
       <h2>Add Transaction</h2>
       <form onSubmit={handleSubmit}>
+        <div>
+          <label>Title: </label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+        </div>
         <div>
           <label>Amount: </label>
           <input

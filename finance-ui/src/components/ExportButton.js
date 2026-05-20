@@ -100,6 +100,7 @@ const ExportButton = () => {
                 Export to CSV
             </button>
             <button onClick={() => handleExport('pdf')} className="export_button-pdf"> {/* Fixed typo: export-button-pdf */}
+            <button onClick={() => handleExport('pdf')} className="export-button-pdf">
                 Export to PDF
             </button>
         </div>

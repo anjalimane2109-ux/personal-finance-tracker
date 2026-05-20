@@ -57,6 +57,21 @@ function Signup() {
                         />
                     </div>
                     <button type="submit" className="auth-button">Sign Up</button>
+                    <p style={{ marginTop: "10px" }}>
+                        Already have an account?
+                    </p>
+                    <button
+                        type="button"
+                        onClick={() => navigate("/login")}
+                        style={{
+                            marginTop: "10px",
+                            padding: "10px",
+                            width: "100%",
+                            cursor: "pointer"
+                        }}
+                    >
+                        Login
+                    </button>
                 </form>
             </div>
         </div>

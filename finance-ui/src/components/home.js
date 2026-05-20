@@ -9,6 +9,7 @@ import Navbar from './Navbar';
 const Home = () => {
   const [transactions, setTransactions] = useState([]);
   const { user, logout, authTokens } = useAuth();  // ✅ Added authTokens
+  const { user, logoutUser, authTokens } = useAuth();  // ✅ Added authTokens
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -53,6 +54,7 @@ const Home = () => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1>Welcome, {user?.username || 'User'}!</h1>
         <button onClick={logout}>Logout</button>
+        <button onClick={logoutUser}>Logout</button>
       </div>
 
       <AddTransaction onAdd={(newTx) => setTransactions([newTx, ...transactions])} />
