@@ -36,7 +36,7 @@ const Dashboard = () => {
     const [transactions, setTransactions] = useState([]);
     const [monthlySummary, setMonthlySummary] = useState(null);
     const [categoryAnalysis, setCategoryAnalysis] = useState(null);
-    const [smartInsights, setSmartInsights] = useState(null);
+    //const [smartInsights, setSmartInsights] = useState(null);
     const [subscriptions, setSubscriptions] = useState([]);
     const [goals, setGoals] = useState([]);
     const [bills, setBills] = useState([]);

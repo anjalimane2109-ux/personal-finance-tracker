@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect , useCallback} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }) => {
         navigate('/');
     };
 
-    const updateToken = async () => {
+    const updateToken = useCallback(async () => {
         const storedTokens = JSON.parse(localStorage.getItem('authTokens'));
         if (!storedTokens || !storedTokens.refresh) {
             logoutUser();
@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }) => {
             console.error('Failed to refresh token', e);
             logoutUser();
         }
-    };
+    }, []);
     
     useEffect(() => {
         if (authTokens) {
