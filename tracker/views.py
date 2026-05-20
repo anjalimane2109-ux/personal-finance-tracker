@@ -524,7 +524,7 @@ from django.contrib.auth.models import User
 from rest_framework import status
 
 @api_view(['POST'])
-def signup(request):
+def Signup(request):
     username = request.data.get('username')
     password = request.data.get('password')
 
