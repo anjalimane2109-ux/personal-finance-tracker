@@ -99,7 +99,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
 CSRF_TRUSTED_ORIGINS = [
-   "https://personal-finance-tracker-six-blond.vercel.app",
+   CSRF_TRUSTED_ORIGINS = [
+    "https://personal-finance-tracker-six-blond.vercel.app",
+    "https://personal-finance-tracker-if2riczlq-anjali-s-projects9.vercel.app",  # ✅ Add this
+]
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
