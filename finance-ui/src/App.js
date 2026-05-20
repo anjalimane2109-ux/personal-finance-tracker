@@ -6,6 +6,7 @@ import Signup from './components/Signup';
 import Home from './components/home';
 import Dashboard from './components/Dashboard';  // ⬅️ import this
 import PrivateRoute from './components/PrivateRoute';
+import RegisterPage from './components/Signup';
 
 function App() {
   return (
