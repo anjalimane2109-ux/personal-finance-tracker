@@ -94,7 +94,7 @@ export const AuthProvider = ({ children }) => {
             console.error('Failed to refresh token', e);
             logoutUser();
         }
-    }, []);
+    }, [logoutUser]);
     
     useEffect(() => {
         if (authTokens) {
