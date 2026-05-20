@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     // and does NOT call e.preventDefault()
     const loginUser = async ({ username, password }) => {
         try {
-            const response = await fetch('http://localhost:8000/api/token/', {
+            const response = await fetch('personal-finance-tracker-ku87.onrender.com/api/token/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
