@@ -137,7 +137,7 @@ const Dashboard = () => {
                 transactionsResult,
                 monthlySummaryResult,
                 categoryAnalysisResult,
-                smartInsightsResult,
+                //smartInsightsResult,
                 subscriptionsResult,
                 goalsResult,
                 billsResult,
@@ -155,7 +155,7 @@ const Dashboard = () => {
             
             setMonthlySummary(monthlySummaryResult || null);
             setCategoryAnalysis(categoryAnalysisResult || null);
-            setSmartInsights(smartInsightsResult || null);
+            //setSmartInsights(smartInsightsResult || null);
             
             setMissingExpenses(missingExpensesResult || []);
             setPersonalReminders(personalRemindersResult || []);
