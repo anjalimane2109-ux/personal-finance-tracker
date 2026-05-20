@@ -58,12 +58,12 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const logoutUser = () => {
+    const logoutUser = useCallback(() => {
         setAuthTokens(null);
         setUser(null);
         localStorage.removeItem('authTokens');
         navigate('/');
-    };
+    }, []);
 
     const updateToken = useCallback(async () => {
         const storedTokens = JSON.parse(localStorage.getItem('authTokens'));
