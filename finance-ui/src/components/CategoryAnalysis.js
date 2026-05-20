@@ -22,7 +22,7 @@ const CategoryAnalysis = () => {
             }
 
             try {
-                const response = await fetch('http://localhost:8000/api/category-analysis/', {
+                const response = await fetch('https://personal-finance-tracker-ku87.onrender.com/api/category-analysis/', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

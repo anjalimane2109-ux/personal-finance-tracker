@@ -16,7 +16,7 @@ const MonthlySummary = () => {
             }
 
             try {
-                const response = await fetch('http://localhost:8000/api/monthly-summary/', {
+                const response = await fetch('https://personal-finance-tracker-ku87.onrender.com/api/monthly-summary/', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

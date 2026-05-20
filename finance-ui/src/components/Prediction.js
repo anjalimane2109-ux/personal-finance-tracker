@@ -15,7 +15,7 @@ const Prediction = () => {
             }
 
             try {
-                const response = await fetch('http://localhost:8000/api/predict-expense/', {
+                const response = await fetch('https://personal-finance-tracker-ku87.onrender.com/api/predict-expense/', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

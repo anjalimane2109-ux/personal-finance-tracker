@@ -15,7 +15,7 @@ const SmartInsights = () => {
             }
 
             try {
-                const response = await fetch('http://localhost:8000/api/smart-insights/', {
+                const response = await fetch('https://personal-finance-tracker-ku87.onrender.com/api/smart-insights/', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

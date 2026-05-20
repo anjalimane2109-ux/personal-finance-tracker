@@ -39,10 +39,10 @@ const ExportButton = () => {
         let filename = '';
 
         if (format === 'csv') {
-            url = 'http://localhost:8000/api/export-transactions/';
+            url = 'https://personal-finance-tracker-ku87.onrender.com/api/export-transactions/';
             filename = 'transactions.csv';
         } else if (format === 'pdf') {
-            url = 'http://localhost:8000/api/export-transactions-pdf/';
+            url = 'https://personal-finance-tracker-ku87.onrender.com/api/export-transactions-pdf/';
             filename = 'transactions.pdf';
         }
 
