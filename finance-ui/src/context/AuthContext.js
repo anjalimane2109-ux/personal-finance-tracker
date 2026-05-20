@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/token/refresh/', {
+            const response = await fetch('https://personal-finance-tracker-ku87.onrender.com/api/token/refresh/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
