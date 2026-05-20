@@ -1,31 +1,41 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // CHANGED: useHistory is now useNavigate
+import { useNavigate } from 'react-router-dom';
 import './Auth.css';
+
+const BASE_URL = 'https://personal-finance-tracker-ku87.onrender.com';
 
 function Signup() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); // CHANGED: Initialize useNavigate
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleSignup = async (e) => {
         e.preventDefault();
+        setLoading(true);
+
         try {
-            const response = await fetch('https://personal-finance-tracker-ku87.onrender.com/api/signup/', {
+            const response = await fetch(`${BASE_URL}/api/signup/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ username, password }),
             });
+
+            const data = await response.json();
+
             if (response.ok) {
                 alert('Sign up successful! Please log in.');
-                navigate('/login'); // CHANGED: Use the navigate function
+                navigate('/login');
             } else {
-                const errorData = await response.json();
-                alert(errorData.error || 'Sign up failed.');
+                alert(data.error || 'Sign up failed. Please try again.');
             }
         } catch (error) {
+            console.error('Signup error:', error);
             alert('An error occurred. Please try again.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -56,18 +66,24 @@ function Signup() {
                             required
                         />
                     </div>
-                    <button type="submit" className="auth-button">Sign Up</button>
-                    <p style={{ marginTop: "10px" }}>
+                    <button
+                        type="submit"
+                        className="auth-button"
+                        disabled={loading}
+                    >
+                        {loading ? 'Signing Up...' : 'Sign Up'}
+                    </button>
+                    <p style={{ marginTop: '10px' }}>
                         Already have an account?
                     </p>
                     <button
                         type="button"
-                        onClick={() => navigate("/login")}
+                        onClick={() => navigate('/login')}
                         style={{
-                            marginTop: "10px",
-                            padding: "10px",
-                            width: "100%",
-                            cursor: "pointer"
+                            marginTop: '10px',
+                            padding: '10px',
+                            width: '100%',
+                            cursor: 'pointer',
                         }}
                     >
                         Login
