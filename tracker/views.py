@@ -520,15 +520,28 @@ from django.contrib.auth.models import User
 from rest_framework import status
 
 
+from django.contrib.auth.models import User
+from rest_framework import status
+
 @api_view(['POST'])
 def signup(request):
     username = request.data.get('username')
     password = request.data.get('password')
 
-    if User.objects.filter(username=username).exists():
+    if not username or not password:
         return Response(
-            {'error': 'Username already exists'},
+            {'error': 'Username and password are required.'},
             status=status.HTTP_400_BAD_REQUEST
         )
 
-    User.objects
+    if User.objects.filter(username=username).exists():
+        return Response(
+            {'error': 'Username already exists.'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    User.objects.create_user(username=username, password=password)  # ✅ This line was missing
+    return Response(
+        {'message': 'User created successfully.'},
+        status=status.HTTP_201_CREATED
+    )
