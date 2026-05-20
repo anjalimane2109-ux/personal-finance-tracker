@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         localStorage.removeItem('authTokens');
         navigate('/');
-    }, []);
+    }, [navigate]);
 
     const updateToken = useCallback(async () => {
         const storedTokens = JSON.parse(localStorage.getItem('authTokens'));
