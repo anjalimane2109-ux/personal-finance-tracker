@@ -170,7 +170,7 @@ const Dashboard = () => {
             }
             setMonthlySummary(null);
             setCategoryAnalysis(null);
-            setSmartInsights(null);
+            //setSmartInsights(null);
             setTransactions([]);
             setSubscriptions([]);
             setGoals([]);
