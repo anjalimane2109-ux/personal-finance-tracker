@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import './Auth.css';
+import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const { loginUser } = useAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // This is correctly here
@@ -49,6 +51,21 @@ function Login() {
                         />
                     </div>
                     <button type="submit" className="auth-button">Login</button>
+                    <p style={{ marginTop: "10px" }}>
+  Don't have an account?
+</p>
+
+<button
+  onClick={() => navigate("/register")}
+  style={{
+    marginTop: "10px",
+    padding: "10px",
+    width: "100%",
+    cursor: "pointer"
+  }}
+>
+  Sign Up
+</button>
                 </form>
             </div>
         </div>
