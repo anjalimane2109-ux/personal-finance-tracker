@@ -23,21 +23,35 @@ function Signup() {
                 body: JSON.stringify({ username, password }),
             });
 
-            const data = await response.json();
+            // ✅ FIX 1: Safely parse JSON — avoid crash if server returns HTML
+            let data = {};
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                data = await response.json();
+            } else {
+                const text = await response.text();
+                console.error('Non-JSON response:', text);
+                // ✅ FIX 2: Show the actual HTTP status to help debug
+                alert(`Server error (${response.status}): Endpoint not found. Check your backend route.`);
+                return;
+            }
 
             if (response.ok) {
                 alert('Sign up successful! Please log in.');
                 navigate('/login');
             } else {
-                alert(data.error || 'Sign up failed. Please try again.');
+                alert(data.error || `Sign up failed (${response.status}). Please try again.`);
             }
         } catch (error) {
-            console.error('Signup error:', error);
-            alert('An error occurred. Please try again.');
+            // ✅ FIX 3: Log the real error message for debugging
+            console.error('Signup error:', error.message);
+            alert(`An error occurred: ${error.message}`);
         } finally {
             setLoading(false);
         }
     };
+
+    // ... rest of JSX stays the same
 
     return (
         <div className="auth-container">
