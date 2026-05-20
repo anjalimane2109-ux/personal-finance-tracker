@@ -93,17 +93,17 @@ const Dashboard = () => {
             }
 
             const urls = [
-                'http://localhost:8000/api/transactions/',
-                'http://localhost:8000/api/monthly-summary/',
-                'http://localhost:8000/api/category-analysis/',
-                'http://localhost:8000/api/smart-insights/',
-                'http://localhost:8000/api/subscriptions/',
-                'http://localhost:8000/api/goals/',
-                'http://localhost:8000/api/bills/',
-                'http://localhost:8000/api/smart-shopping-reminders/',
-                'http://localhost:8000/api/missing-expenses/',
-                'http://localhost:8000/api/reminders/',
-                'http://localhost:8000/api/saving-suggestion/',
+                'https://personal-finance-tracker-ku87.onrender.com/api/transactions/',
+                'https://personal-finance-tracker-ku87.onrender.com/api/monthly-summary/',
+                'https://personal-finance-tracker-ku87.onrender.com/api/category-analysis/',
+                'https://personal-finance-tracker-ku87.onrender.com/api/smart-insights/',
+                'https://personal-finance-tracker-ku87.onrender.com/api/subscriptions/',
+                'https://personal-finance-tracker-ku87.onrender.com/api/goals/',
+                'https://personal-finance-tracker-ku87.onrender.com/api/bills/',
+                'https://personal-finance-tracker-ku87.onrender.com/api/smart-shopping-reminders/',
+                'https://personal-finance-tracker-ku87.onrender.com/api/missing-expenses/',
+                'https://personal-finance-tracker-ku87.onrender.com/api/reminders/',
+                'https://personal-finance-tracker-ku87.onrender.com/api/saving-suggestion/',
             ];
 
             const token = authTokens.access;
@@ -212,7 +212,7 @@ const Dashboard = () => {
 
     const handleAddTransaction = async (e) => {
         e.preventDefault();
-        const url = 'http://localhost:8000/api/transactions/';
+        const url = 'https://personal-finance-tracker-ku87.onrender.com/api/transactions/';
         
         if (!authTokens || !authTokens.access) {
             setError('Authentication token not found. Please log in.');
@@ -272,7 +272,7 @@ const Dashboard = () => {
             return;
         }
         
-        const url = `http://localhost:8000/api/reminders/${reminderId}/`;
+        const url = `https://personal-finance-tracker-ku87.onrender.com/api/reminders/${reminderId}/`;
         const token = authTokens.access;
 
         try {
@@ -298,7 +298,7 @@ const Dashboard = () => {
 
     const handleAddReminder = async (e) => {
         e.preventDefault();
-        const url = 'http://localhost:8000/api/reminders/';
+        const url = 'https://personal-finance-tracker-ku87.onrender.com/api/reminders/';
         
         if (!authTokens || !authTokens.access) {
             setError('Authentication token not found. Please log in.');
@@ -354,7 +354,7 @@ const Dashboard = () => {
         e.preventDefault();
         if (!editingReminderId) return;
 
-        const url = `http://localhost:8000/api/reminders/${editingReminderId}/`;
+        const url = `https://personal-finance-tracker-ku87.onrender.com/api/reminders/${editingReminderId}/`;
         const updatedReminder = {
             title: newReminderTitle,
             due_date: newReminderDate, // Assuming YYYY-MM-DD
@@ -393,7 +393,7 @@ const Dashboard = () => {
             return;
         }
 
-        const url = `http://localhost:8000/api/reminders/${reminderId}/`;
+        const url = `https://personal-finance-tracker-ku87.onrender.com/api/reminders/${reminderId}/`;
         
         try {
             const response = await fetch(url, {
@@ -415,7 +415,7 @@ const Dashboard = () => {
     
     const handleAddSubscription = async (e) => {
         e.preventDefault();
-        const url = 'http://localhost:8000/api/subscriptions/';
+        const url = 'https://personal-finance-tracker-ku87.onrender.com/api/subscriptions/';
         
         if (!authTokens || !authTokens.access) {
             setError('Authentication token not found. Please log in.');
@@ -469,7 +469,7 @@ const Dashboard = () => {
     
     const handleAddGoal = async (e) => {
         e.preventDefault();
-        const url = 'http://localhost:8000/api/goals/';
+        const url = 'https://personal-finance-tracker-ku87.onrender.com/api/goals/';
         
         if (!authTokens || !authTokens.access) {
             setError('Authentication token not found. Please log in.');
@@ -518,7 +518,7 @@ const Dashboard = () => {
     
     const handleAddBill = async (e) => {
         e.preventDefault();
-        const url = 'http://localhost:8000/api/bills/';
+        const url = 'https://personal-finance-tracker-ku87.onrender.com/api/bills/';
         
         if (!authTokens || !authTokens.access) {
             setError('Authentication token not found. Please log in.');
