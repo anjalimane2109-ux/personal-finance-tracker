@@ -15,6 +15,7 @@ urlpatterns = [
     path('transactions/', TransactionList.as_view(), name='transaction-list'),
     path('transactions/<int:pk>/', TransactionDetail.as_view(), name='transaction-detail'),
     path('signup/', Signup),
+    path('signup', Signup),
     # Insights and analysis
     path('monthly-summary/', MonthlySummary.as_view(), name='monthly-summary'),
     path('category-analysis/', CategoryAnalysis.as_view(), name='category-analysis'),
